@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: lannister-app-ui
+  name: lannister-app-ui
+  namespace: red-team
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: lannister-app-ui
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: lannister-app-ui
+    spec:
+      nodeSelector: 
+        failure-domain.beta.kubernetes.io/zone : ap-south-1a
+      containers:
+        - image: nginx:latest
+          name: lannister-app-ui
+          ports:
+            - name: http-port
+              containerPort: 8080
+          resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lannister-app-backend-service
+  namespace: lannister-app-ui
+spec:
+  selector:
+    app: lannister-app-ui
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
