@@ -5,7 +5,7 @@ provider "aws" {
 
 resource "aws_key_pair" "lan-jenkins-kp" {
   key_name   = "lan-jenkins-kp"
-  #public_key = "${file("~/.ssh/id_rsa.pub")}"
+  public_key = "${file("~/.ssh/id_rsa.pub")}"
   }
 
 resource "aws_ebs_volume" "lan-jenkins-ebs" {
@@ -34,4 +34,3 @@ resource "aws_volume_attachment" "lan-ebs-attach" {
   volume_id   = "${aws_ebs_volume.lan-jenkins-ebs.id}"
   instance_id = "${aws_instance.lan-jenkins-dev.id}"
 }
-
