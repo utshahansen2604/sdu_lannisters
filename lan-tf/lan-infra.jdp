@@ -15,4 +15,11 @@ node{
                 sh 'git checkout master'
                 sh 'cat README.md'
         }
+
+        stage("=== Build Stage===")
+        {
+            build job: 'Lan-App-Dev',
+            parameters: [], 
+
+        }
 }
