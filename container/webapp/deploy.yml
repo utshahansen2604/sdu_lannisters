@@ -5,9 +5,9 @@ metadata:
   labels:
     app: lannister-app-ui
   name: lannister-app-ui
-  namespace: red-team
+  namespace: lannisters
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: lannister-app-ui
@@ -31,12 +31,12 @@ status: {}
 apiVersion: v1
 kind: Service
 metadata:
-  name: lannister-app-backend-service
-  namespace: lannister-app-ui
+  name: lannister-app-ui-service
+  namespace: lannisters
 spec:
   selector:
     app: lannister-app-ui
-  type: LoadBalancer
+  # type: LoadBalancer
   ports:
     - protocol: TCP
       port: 80
