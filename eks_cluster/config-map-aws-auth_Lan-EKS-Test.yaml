@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+data:
+  mapRoles: |
+    - rolearn: arn:aws:iam::580572941932:role/Lan-EKS-Test20191211090059880300000009
+      username: system:node:{{EC2PrivateDNSName}}
+      groups:
+        - system:bootstrappers
+        - system:nodes
+
+  
+    - "groups":
+      - "system:masters"
+      "rolearn": "arn:aws:iam::580572941932:role/ShellPowerUser"
+      "username": "ShellPowerUser"
+    - "groups":
+      - "system:masters"
+      "rolearn": "arn:aws:iam::580572941932:role/Lannister_Jenkins_Instance_Role"
+      "username": "Lannister_Jenkins_Instance_Role"
+    
+  
+  
+  

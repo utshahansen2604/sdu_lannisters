@@ -12,7 +12,7 @@ node{
     // Test Phase
         stage("===Read README file==="){
             
-                sh 'git checkout master'
+                //sh 'git checkout master'
                 sh 'cat README.md'
         }
 
