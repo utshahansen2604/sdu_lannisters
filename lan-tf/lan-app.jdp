@@ -1,0 +1,18 @@
+// Jenkinsfile for Lannisters Application Deployment
+node{
+    // Git Preparation
+        stage("===Git Prep==="){
+    
+            checkout([$class: 'GitSCM',
+            branches: [[name: 'origin/master']],
+            extensions: [[$class: 'WipeWorkspace']],
+            userRemoteConfigs: [[url: 'https://github.com/utshahansen2604/sdu_lannisters.git']]
+            ])
+        }
+    // Test Phase
+        stage("===Read README file==="){
+            
+                sh 'git checkout master'
+                sh 'cat README.md'
+        }
+}
