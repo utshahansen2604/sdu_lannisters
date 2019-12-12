@@ -37,7 +37,7 @@ spec:
   # or maybe external users to connect to (eg browser)
   selector:
     app: webapp
-
+    type: LoadBalancer
   ports:
     # - name: http
       #port: 80
