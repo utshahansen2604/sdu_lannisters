@@ -7,14 +7,14 @@ resource "aws_security_group" "lan-allow-ssh-1" {
  # Allow SSH for port 22
   ingress {
     protocol   = "tcp"
-    cidr_blocks = ["165.225.104.0/22"] 
+    cidr_blocks = ["0.0.0.0/0"] 
     from_port  = 22
     to_port    = 22
   }
   # Allow TCP for port 8080
     ingress {
       protocol = "tcp"
-      cidr_blocks =["165.225.104.0/22"]
+      cidr_blocks =["0.0.0.0/0"]
       from_port = 8080
       to_port = 8080
     }
