@@ -1,0 +1,36 @@
+pipeline {
+   agent any
+
+   environment {
+     SERVICE_NAME = "webapp"
+     REPOSITORY_TAG="${YOUR_DOCKERHUB_USERNAME}/${ORGANIZATION_NAME}-${SERVICE_NAME}:${BUILD_ID}"
+   }
+
+   stages {
+      stage('Preparation') {
+         steps {
+            
+            checkout([$class: 'GitSCM',
+            branches: [[name: 'origin/eswarkp/container']],
+            extensions: [[$class: 'WipeWorkspace']],
+            userRemoteConfigs: [[url: 'https://github.com/utshahansen2604/sdu_lannisters.git']]
+            ])
+        }
+         }
+      
+      stage('Build and Deploy') {
+         steps {
+           dir("container") {
+                dir("webapp") {
+               sh """
+                    pwd
+                    ls -la
+                    aws eks --region ap-south-1 update-kubeconfig --name Lan-EKS-Test
+                    sudo kubectl apply -f deploy.yml
+                    """
+                }
+           }
+         }
+      }
+   }
+}

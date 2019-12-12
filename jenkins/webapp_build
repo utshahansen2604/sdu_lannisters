@@ -1,0 +1,36 @@
+pipeline {
+   agent any
+
+   stages {
+     stage("Checkout Fleetman"){
+         steps {
+            checkout([$class: 'GitSCM',
+            branches: [[name: 'origin/master']],
+            extensions: [[$class: 'WipeWorkspace']],
+            userRemoteConfigs: [[url: 'https://github.com/mhristof/fleetman.git']]
+            ])
+         }
+        }
+      stage("Docker Build and Push to ECR"){
+          steps {
+                dir("webapp") {
+                    
+                    sh """
+                    docker build . -t fleetman-webapp
+                    eval \$(aws ecr get-login --region ap-south-1 --no-include-email | sed 's|https://||')
+                    docker tag fleetman-webapp 580572941932.dkr.ecr.ap-south-1.amazonaws.com/lannisters_repo_webapp
+                    docker push 580572941932.dkr.ecr.ap-south-1.amazonaws.com/lannisters_repo_webapp
+                    """
+                    
+                }
+        }
+      }
+   }
+   post {
+    success {
+      echo "Executing App Pipeline"
+      build job: 'webapp_deploy'
+    }
+  }
+
+}
