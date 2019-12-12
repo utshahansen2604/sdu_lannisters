@@ -2,7 +2,7 @@ pipeline {
    agent any
 
    environment {
-     SERVICE_NAME = "webapp"
+     SERVICE_NAME = "queue"
      REPOSITORY_TAG="${YOUR_DOCKERHUB_USERNAME}/${ORGANIZATION_NAME}-${SERVICE_NAME}:${BUILD_ID}"
    }
 
@@ -21,7 +21,7 @@ pipeline {
       stage('Build and Deploy') {
          steps {
            dir("container") {
-                dir("webapp") {
+                dir("queue") {
                sh """
                     pwd
                     ls -la

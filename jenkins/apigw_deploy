@@ -21,7 +21,7 @@ pipeline {
       stage('Build and Deploy') {
          steps {
            dir("container") {
-                dir("webapp") {
+                dir("apigw") {
                sh """
                     pwd
                     ls -la
