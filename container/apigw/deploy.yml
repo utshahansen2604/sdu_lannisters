@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: api-gateway
-        image: api-gateway
+        image: 580572941932.dkr.ecr.ap-south-1.amazonaws.com/lannisters_repo_apigateway:latest
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: production-microservice
